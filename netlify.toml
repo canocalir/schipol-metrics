@@ -1,0 +1,8 @@
+[[redirects]]
+  from = “/flights/*”
+  to = “https://api.schiphol.nl/public-flights"
+  status = 200
+[[redirects]]
+  from = “/*”
+  to = “/index.html”
+  status = 200
