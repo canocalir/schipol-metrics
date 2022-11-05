@@ -66,7 +66,7 @@ const App = () => {
   const nextPageFetchData = () => {
     setPage((current) => current + 1);
   };
-
+/* eslint-disable */
   useEffect(() => {
     fetchData();
   }, [page, arrival]);

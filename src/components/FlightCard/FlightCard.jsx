@@ -98,7 +98,7 @@ const FlightCard = ({ flight, arrival }) => {
       })
     );
   };
-
+/* eslint-disable */
   useEffect(() => {
     countryConverter(route?.destinations[0]);
   }, []);
