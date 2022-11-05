@@ -1,21 +1,25 @@
 import styled from "styled-components";
 import FlightCard from "../FlightCard/FlightCard";
-import Loading from "../Loading/Loading";
 
-const Board = ({ data, arrival, loading }) => {
+const Board = ({ data, arrival, filteredData }) => {
+ 
   return (
     <BoardContainer>
-      {loading ? (
-        <Loading />
-      ) : (
-        data.map((flight, id) => {
+      {filteredData?.length ? filteredData.map((flight, id) => {
           return (
             <div key={id}>
               <FlightCard arrival={arrival} flight={flight} />
             </div>
           );
-        })
-      )}
+        }
+      ) : data.map((flight, id) => {
+        return (
+          <div key={id}>
+            <FlightCard arrival={arrival} flight={flight} />
+          </div>
+        );
+      }
+    )}
     </BoardContainer>
   );
 };

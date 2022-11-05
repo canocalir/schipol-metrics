@@ -60,6 +60,9 @@ const TypeButtonContainer = styled.div`
   align-items: center;
   padding: 1rem;
   width: 95%;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const TypeButton = styled.button`
@@ -68,6 +71,7 @@ const TypeButton = styled.button`
   border-radius: 1rem;
   border: #141251;
   font-weight: 600;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   &:hover {
     cursor: pointer;
   }

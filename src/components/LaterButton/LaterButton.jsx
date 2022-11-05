@@ -1,14 +1,16 @@
 import { TfiAngleDoubleDown } from "react-icons/tfi";
 import styled from "styled-components";
+import Loading from "../Loading/Loading";
 
 
-const LaterButton = ({page, nextPageFetchData}) => {
+const LaterButton = ({nextPageFetchData, loading}) => {
   return (
     <ButtonContainer>
       <Button rel="next" onClick={nextPageFetchData}>
       <TfiAngleDoubleDown />
         Show Later Flights
       </Button>
+      {loading ? <Loading/> : null}
     </ButtonContainer>
   );
 };
@@ -26,7 +28,7 @@ const Button = styled.button`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 7rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   cursor: pointer;
   font-size: 1rem;
