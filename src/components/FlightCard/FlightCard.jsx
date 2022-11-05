@@ -7,8 +7,8 @@ import {
   GiCancel,
   GiCommercialAirplane,
 } from "react-icons/gi";
-import {RiCalendarCheckFill, RiFlightLandLine } from 'react-icons/ri'
-import {MdLuggage} from 'react-icons/md'
+import { RiCalendarCheckFill, RiFlightLandLine } from "react-icons/ri";
+import { MdLuggage } from "react-icons/md";
 
 const FlightCard = ({ flight, arrival }) => {
   const [convertedCity, setConvertedCity] = useState("");
@@ -18,14 +18,12 @@ const FlightCard = ({ flight, arrival }) => {
     actualLandingTime,
     estimatedLandingTime,
     flightName,
-    flightNumber,
+
     route,
     scheduleTime,
-    scheduleDate,
+
     baggageClaim,
-    expectedSecurityFilter,
-    aircraftRegistration,
-    airlineCode,
+
     expectedTimeBoarding,
     actualOffBlockTime,
     publicFlightState,
@@ -114,7 +112,7 @@ const FlightCard = ({ flight, arrival }) => {
       break;
     case "Landed":
       style = { backgroundColor: "#b8f7a8" };
-      styleIcon = <RiFlightLandLine/>
+      styleIcon = <RiFlightLandLine />;
       break;
     case "On Air":
       style = { backgroundColor: "#abd0f1" };
@@ -195,7 +193,13 @@ const FlightCard = ({ flight, arrival }) => {
           {!arrival
             ? gate || "-"
             : baggageClaim?.belts.map((belt, index) => {
-              return ( <div key={index}>{<MdLuggage/>}{belt}</div> )}) || "-"}
+                return (
+                  <div key={index}>
+                    {<MdLuggage />}
+                    {belt}
+                  </div>
+                );
+              }) || "-"}
         </BaggageBadge>
       </DetailItemContainer>
       <DetailItemContainer>

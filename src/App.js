@@ -33,21 +33,13 @@ const App = () => {
   const dateNow = date;
   const dateTomorrow = addDays(dateData, 1);
 
-  const amsTimeNow = new Date(
-    dateNow?.toLocaleString("en-US", { timeZone: "Europe/Amsterdam" })
-  );
+  const jsonDateNow = dateNow.toJSON().split(".")[0];
+  const jsonDateTomorrow = dateTomorrow.toJSON().split(".")[0];
 
-  const amsTimeTomorrow = new Date(
-    dateTomorrow.toLocaleString("en-US", { timeZone: "Europe/Amsterdam" })
-  );
+  const day = String(dateNow.getDate()).padStart(2, "0");
+  const month = String(dateNow.getMonth() + 1).padStart(2, "0");
 
-  const jsonDateNow = amsTimeNow.toJSON().split(".")[0];
-  const jsonDateTomorrow = amsTimeTomorrow.toJSON().split(".")[0];
-
-  const day = String(amsTimeNow.getDate()).padStart(2, "0");
-  const month = String(amsTimeNow.getMonth() + 1).padStart(2, "0");
-
-  const year = +String(amsTimeNow.getFullYear()).padStart(2, "0");
+  const year = +String(dateNow.getFullYear()).padStart(2, "0");
 
   const fetchData = async () => {
     setLoading(true);
