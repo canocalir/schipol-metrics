@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/flights/*"
-  to = "https://api.schiphol.nl/public-flights"
+  to = "https://api.schiphol.nl/public-flights/:splat"
   status = 200
 [[redirects]]
   from = "/*"
