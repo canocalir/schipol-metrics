@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { ImClock } from "react-icons/im";
+import {useEffect, useState} from "react";
+import {ImClock} from "react-icons/im";
 import styled from "styled-components";
 
 const Time = () => {
@@ -8,13 +8,14 @@ const Time = () => {
     minutes: '',
     seconds: '',
   });
-
+  
   useEffect(() => {
     const setTimeHandler = () => {
+      const date = new Date()
       setTime({
-        hours: String(new Date().getHours()).padStart(2, "0"),
-        minutes: String(new Date().getMinutes()).padStart(2, "0"),
-        seconds: String(new Date().getSeconds()).padStart(2, "0"),
+        hours: String(date.getHours()).padStart(2, "0"),
+        minutes: String(date.getMinutes()).padStart(2, "0"),
+        seconds: String(date.getSeconds()).padStart(2, "0"),
       });
     }
     setTimeHandler()
@@ -22,8 +23,8 @@ const Time = () => {
       setTimeHandler()
     }, 1000);
     clearInterval(interval)
-  },[time])
-
+  }, [time])
+  
   return (
     <Clock>
       <ImClock/>{time.hours}:{time.minutes}:{time.seconds}
