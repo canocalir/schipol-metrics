@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import styled from "styled-components";
 import cities from "../../cities.json";
 import {
@@ -7,23 +7,43 @@ import {
   GiCancel,
   GiCommercialAirplane,
 } from "react-icons/gi";
-import { RiCalendarCheckFill, RiFlightLandLine } from "react-icons/ri";
-import { MdLuggage } from "react-icons/md";
+import {RiCalendarCheckFill, RiFlightLandLine} from "react-icons/ri";
+import {MdLuggage} from "react-icons/md";
+
+const FLIGHT_STATUSES = {
+  FIR: 'Approaching',
+  SCH: 'On Time',
+  AIR: 'On Air',
+  EXP: 'Landing',
+  LND: 'Landed',
+  FIB: 'Baggage Soon',
+  ARR: 'Completed',
+  DIV: 'Diverted',
+  CNX: 'Canceled',
+  TOM: 'Tomorrow',
+  DEL: 'Delayed',
+  WIL: 'Wait in Lounge',
+  GTO: 'Gate Open',
+  GCL: 'Gate Closing',
+  GTD: 'Gate Closed',
+  DEP: 'Departed',
+  GCH: 'Gate Change',
+}
 
 const FlightCard = ({ flight, arrival }) => {
   const [convertedCity, setConvertedCity] = useState("");
-
+  
   const {
     id,
     actualLandingTime,
     estimatedLandingTime,
     flightName,
-
+    
     route,
     scheduleTime,
-
+    
     baggageClaim,
-
+    
     expectedTimeBoarding,
     actualOffBlockTime,
     publicFlightState,
@@ -31,109 +51,49 @@ const FlightCard = ({ flight, arrival }) => {
     gate,
     aircraftType: { iataMain },
   } = flight;
-
-  let flightStatus = "";
-
-  switch (publicFlightState?.flightStates[0]) {
-    case "FIR":
-      flightStatus = "Approaching";
-      break;
-    case "SCH":
-      flightStatus = "On Time";
-      break;
-    case "AIR":
-      flightStatus = "On Air";
-      break;
-    case "EXP":
-      flightStatus = "Landing";
-      break;
-    case "LND":
-      flightStatus = "Landed";
-      break;
-    case "FIB":
-      flightStatus = "Baggage Soon";
-      break;
-    case "ARR":
-      flightStatus = "Completed";
-      break;
-    case "DIV":
-      flightStatus = "Diverted";
-      break;
-    case "CNX":
-      flightStatus = "Canceled";
-      break;
-    case "TOM":
-      flightStatus = "Tomorrow";
-      break;
-    case "DEL":
-      flightStatus = "Delayed";
-      break;
-    case "WIL":
-      flightStatus = "Wait in Lounge";
-      break;
-    case "GTO":
-      flightStatus = "Gate Open";
-      break;
-    case "GCL":
-      flightStatus = "Gate Closing";
-      break;
-    case "GTD":
-      flightStatus = "Gate Closed";
-      break;
-    case "DEP":
-      flightStatus = "Departed";
-      break;
-    case "GCH":
-      flightStatus = "Gate Change";
-      break;
-    default:
-      flightStatus = "No Info Yet";
-      break;
-  }
-
+  
+  
+  let flightStatus = FLIGHT_STATUSES[publicFlightState?.flightStates[0]] ?? "No Info Yet";
+  
   const countryConverter = (code) => {
-    setConvertedCity(
-      cities.filter((city) => {
-        return city?.code === code;
-      })
-    );
+    setConvertedCity(cities.filter((city) => city?.code === code));
   };
-/* eslint-disable */
+  /* eslint-disable */
   useEffect(() => {
     countryConverter(route?.destinations[0]);
   }, []);
-
+  
   let style;
   let styleIcon;
   switch (flightStatus) {
     case "Canceled":
       style = { backgroundColor: "#f7b7b2ff" };
-      styleIcon = <GiCancel />;
+      styleIcon = <GiCancel/>;
       break;
     case "Landed":
       style = { backgroundColor: "#b8f7a8" };
-      styleIcon = <RiFlightLandLine />;
+      styleIcon = <RiFlightLandLine/>;
       break;
     case "On Air":
       style = { backgroundColor: "#abd0f1" };
-      styleIcon = <GiCommercialAirplane />;
+      styleIcon = <GiCommercialAirplane/>;
       break;
     case "On Time":
       style = { backgroundColor: "#b8f7a8" };
-      styleIcon = <RiCalendarCheckFill />;
+      styleIcon = <RiCalendarCheckFill/>;
       break;
     case "Approaching":
       style = { backgroundColor: "#f7e0a4" };
-      styleIcon = <GiAirplaneArrival />;
+      styleIcon = <GiAirplaneArrival/>;
       break;
     case "Departed":
       style = { backgroundColor: "#f7e0a4" };
-      styleIcon = <GiAirplaneDeparture />;
+      styleIcon = <GiAirplaneDeparture/>;
       break;
     default:
       style = { backgroundColor: "#fdc52e" };
   }
-
+  
   return (
     <CardContainer key={id}>
       <DetailItemContainer style={{ width: "9rem" }}>
@@ -193,13 +153,13 @@ const FlightCard = ({ flight, arrival }) => {
           {!arrival
             ? gate || "-"
             : baggageClaim?.belts.map((belt, index) => {
-                return (
-                  <div key={index}>
-                    {<MdLuggage />}
-                    {belt}
-                  </div>
-                );
-              }) || "-"}
+            return (
+              <div key={index}>
+                {<MdLuggage/>}
+                {belt}
+              </div>
+            );
+          }) || "-"}
         </BaggageBadge>
       </DetailItemContainer>
       <DetailItemContainer>
@@ -269,7 +229,6 @@ const CardContainer = styled.div`
   background-color: #fff;
   box-shadow: 0 0.0125em 0.75rem 0 rgb(20 18 81 / 10%);
   margin-bottom: 0.5rem;
-  padding: 1.25rem 1.25rem 1rem;
   position: relative;
   z-index: 0;
   flex-wrap: wrap;
@@ -277,8 +236,9 @@ const CardContainer = styled.div`
   padding: 2rem;
   gap: 1rem;
   border-radius: 1rem;
+
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
-      rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
   }
 `;

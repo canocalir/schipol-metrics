@@ -2,24 +2,18 @@ import styled from "styled-components";
 import FlightCard from "../FlightCard/FlightCard";
 
 const Board = ({ data, arrival, filteredData }) => {
- 
+  const cardData = filteredData?.length ? filteredData : data
+  
   return (
     <BoardContainer>
-      {filteredData?.length ? filteredData.map((flight, id) => {
+      {cardData.map((flight, id) => {
           return (
             <div key={id}>
-              <FlightCard arrival={arrival} flight={flight} />
+              <FlightCard arrival={arrival} flight={flight}/>
             </div>
           );
         }
-      ) : data.map((flight, id) => {
-        return (
-          <div key={id}>
-            <FlightCard arrival={arrival} flight={flight} />
-          </div>
-        );
-      }
-    )}
+      )}
     </BoardContainer>
   );
 };

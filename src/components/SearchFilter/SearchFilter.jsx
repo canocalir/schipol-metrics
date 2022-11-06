@@ -1,46 +1,36 @@
 import styled from "styled-components";
-import { ImSearch } from "react-icons/im";
-import { useState } from "react";
-import { toast } from "react-toastify";
+import {ImSearch} from "react-icons/im";
+import {useState} from "react";
+import {toast} from "react-toastify";
+
+const buttonStyle = {
+  position: "absolute",
+  right: "1rem",
+  top: "37%",
+  cursor: "pointer",
+  backgroundColor: "#141251",
+  borderRadius: "50%",
+  padding: "0.5rem",
+  color: "#fff",
+  width: "20px",
+  height: "20px",
+};
 
 const Search = ({
   dataArrival,
   dataDeparture,
-  filteredData,
   setFilteredData,
   arrival,
-  seArrival
 }) => {
   const [inputValue, setInputValue] = useState("");
-
-  const buttonStyle = {
-    position: "absolute",
-    right: "1rem",
-    top: "37%",
-    cursor: "pointer",
-    backgroundColor: "#141251",
-    borderRadius: "50%",
-    padding: "0.5rem",
-    color: "#fff",
-    width: "20px",
-    height: "20px",
-  };
-
-  const searchFilterHandler = (e) => {
+  
+  const searchFilterHandler = (event) => {
+    event.preventDefault()
+    
     setInputValue('')
     setFilteredData('')
-    e.preventDefault()
-    if (inputValue.length > 0) {
-       setFilteredData(!arrival ? dataDeparture.filter((departure) => {
-        return (
-          departure?.flightName.toLowerCase() === inputValue.toLowerCase()
-        );
-      }) : dataArrival.filter((arrival) => {
-        return (
-          arrival?.flightName.toLowerCase() === inputValue.toLowerCase()
-        );
-      }))
-    } else {
+    
+    if (!inputValue.length) {
       toast.warn("Enter a Flight Name", {
         position: "top-right",
         autoClose: 2000,
@@ -51,23 +41,30 @@ const Search = ({
         progress: undefined,
         theme: "light",
       });
+      return
     }
+    
+    setFilteredData((!arrival ? dataDeparture : dataArrival).filter((departure) => {
+      return (
+        departure?.flightName.toLowerCase() === inputValue.toLowerCase()
+      );
+    }))
   };
-
+  
   return (
     <SearchContainer>
       <form onSubmit={searchFilterHandler}>
-      <SearchFilter
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        placeholder={"Enter Flight Name"}
-      />
-      <ImSearch
-        size={"1.2rem"}
-        style={buttonStyle}
-        type={'submit'}
-        onClick={searchFilterHandler}
-      />
+        <SearchFilter
+          value={inputValue}
+          onChange={(event) => setInputValue(event.target.value)}
+          placeholder="Enter Flight Name"
+        />
+        <ImSearch
+          size="1.2rem"
+          style={buttonStyle}
+          type="submit"
+          onClick={searchFilterHandler}
+        />
       </form>
     </SearchContainer>
   );
@@ -76,7 +73,7 @@ const Search = ({
 const SearchFilter = styled.input`
   padding-left: 1rem;
   width: 22rem;
-  margin-left:0.5rem;
+  margin-left: 0.5rem;
   height: 3.3rem;
   border-radius: 1rem;
   border: none;

@@ -1,49 +1,38 @@
-import { useState } from "react";
+import {useState} from "react";
 import styled from "styled-components";
 
-const BoardTypeButtons = ({ setArrival, arrival }) => {
-  const [color, setColor] = useState("#141251");
+const defaultButtonBg = "#141251"
 
+const defaultButtonStyle = {
+  outline: "2px solid #141251",
+  color: defaultButtonBg,
+}
+
+const BoardTypeButtons = ({ setArrival, arrival }) => {
+  const [color, setColor] = useState(defaultButtonBg);
+  
   const buttonActiveHandler = (isTrue, color) => {
     setArrival(isTrue);
     setColor(color);
   };
-
+  
+  const conditionalStyle = {
+    ...defaultButtonStyle,
+    color: '#fff',
+    backgroundColor: color,
+  }
+  
   return (
     <TypeButtonContainer>
       <TypeButton
-        style={
-          arrival
-            ? {
-                backgroundColor: color,
-                outline: "2px solid #141251",
-                color: "#fff",
-              }
-            : {
-                background: "none",
-                outline: "2px solid #141251",
-                color: "#141251",
-              }
-        }
-        onClick={() => buttonActiveHandler(true, "#141251")}
+        style={arrival ? conditionalStyle : defaultButtonStyle}
+        onClick={() => buttonActiveHandler(true, defaultButtonBg)}
       >
         Arrivals
       </TypeButton>
       <TypeButton
-        style={
-          !arrival
-            ? {
-                backgroundColor: color,
-                outline: "2px solid #141251",
-                color: "#fff",
-              }
-            : {
-                background: "none",
-                color: "#141251",
-                outline: "2px solid #141251",
-              }
-        }
-        onClick={() => buttonActiveHandler(false, "#141251")}
+        style={!arrival ? conditionalStyle : defaultButtonStyle}
+        onClick={() => buttonActiveHandler(false, defaultButtonBg)}
       >
         Departures
       </TypeButton>
@@ -72,6 +61,7 @@ const TypeButton = styled.button`
   border: #141251;
   font-weight: 600;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
   &:hover {
     cursor: pointer;
   }

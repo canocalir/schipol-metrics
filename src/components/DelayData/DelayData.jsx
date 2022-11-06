@@ -1,10 +1,8 @@
-const DelayData = ({data}) => {
-
+const DelayData = ({ data }) => {
+  
   return (
     <div>
-        {data.map((delay) => {
-            return <div>{delay.medianDelay}</div>
-        })}
+      {data.map(({ medianDelay }) => <div>{medianDelay}</div>)}
     </div>
   )
 }
