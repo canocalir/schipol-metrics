@@ -43,7 +43,7 @@ const App = () => {
 
   const fetchData = async () => {
     setLoading(true);
-    const url = `/flights?flightDirection=${
+    const url = `${process.env.REACT_APP_BASE_URL}/flights?flightDirection=${
       arrival ? "A" : "D"
     }&fromDateTime=${jsonDateNow}&toDateTime=${jsonDateTomorrow}&searchDateTimeField=scheduleDateTime&page=${page}&sort=+scheduleDate, +scheduleTime`;
     const res = await fetch(url, {

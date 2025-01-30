@@ -8,21 +8,22 @@ const Time = () => {
     minutes: '',
     seconds: '',
   });
+  
+  const setTimeHandler = () => {
+    setTime({
+      hours: String(new Date().getHours()).padStart(2, "0"),
+      minutes: String(new Date().getMinutes()).padStart(2, "0"),
+      seconds: String(new Date().getSeconds()).padStart(2, "0"),
+    });
+  }
 
   useEffect(() => {
-    const setTimeHandler = () => {
-      setTime({
-        hours: String(new Date().getHours()).padStart(2, "0"),
-        minutes: String(new Date().getMinutes()).padStart(2, "0"),
-        seconds: String(new Date().getSeconds()).padStart(2, "0"),
-      });
-    }
-    setTimeHandler()
-    let interval = setInterval(() => {
-      setTimeHandler()
+    setTimeHandler();
+    const interval = setInterval(() => {
+      setTimeHandler();
     }, 1000);
-    clearInterval(interval)
-  },[time])
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Clock>
